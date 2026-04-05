@@ -1,5 +1,3 @@
-// TODO: Implement browser-side Supabase client
-
 import { createBrowserClient } from "@supabase/ssr";
 
 export function createClient() {

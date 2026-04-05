@@ -1,5 +1,3 @@
-// TODO: Implement server-side Supabase client
-
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
