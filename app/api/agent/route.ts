@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { buildSystemPrompt } from "@/lib/prompts/builder";
-import { AgentMessage, AgentRequest } from "@/lib/types";
+import { ChatMessage } from "@/lib/types";
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -11,8 +11,12 @@ const anthropic = new Anthropic({
 
 export async function POST(request: NextRequest) {
   try {
-    const body: AgentRequest = await request.json();
-    const { messages, module, brand_id: _brandId } = body;
+    const body = await request.json();
+    const { messages, module, brandId: _brandId } = body as {
+      messages: ChatMessage[];
+      module: string;
+      brandId?: string;
+    };
 
     // TODO: Fetch brand profile from Supabase using brand_id
     const brandProfile = null; // Placeholder until Supabase is wired up
@@ -20,7 +24,7 @@ export async function POST(request: NextRequest) {
     const systemPrompt = buildSystemPrompt(module, brandProfile);
 
     // Convert messages to Anthropic format
-    const anthropicMessages = messages.map((msg: AgentMessage) => ({
+    const anthropicMessages = messages.map((msg: ChatMessage) => ({
       role: msg.role as "user" | "assistant",
       content: msg.content,
     }));
@@ -35,12 +39,9 @@ export async function POST(request: NextRequest) {
     const assistantContent =
       response.content[0].type === "text" ? response.content[0].text : "";
 
-    const assistantMessage: AgentMessage = {
-      id: crypto.randomUUID(),
+    const assistantMessage: ChatMessage = {
       role: "assistant",
       content: assistantContent,
-      module,
-      timestamp: new Date().toISOString(),
     };
 
     return NextResponse.json({ message: assistantMessage });

@@ -15,11 +15,12 @@ export function buildSystemPrompt(
 
   const brandContext = `
 ## Brand Context
-- **Brand Name:** ${brandProfile.brand_name}
-- **Brand Voice:** ${brandProfile.brand_voice}
-- **Target Audience:** ${brandProfile.target_audience}
-- **Product Category:** ${brandProfile.product_category}
-- **Unique Selling Points:** ${brandProfile.unique_selling_points.join(", ")}
+- **Brand Name:** ${brandProfile.name}
+- **Brand Voice:** ${brandProfile.brandVoice}
+- **Target Audience:** ${brandProfile.targetAudience}
+- **Categories:** ${brandProfile.categories.join(", ")}
+- **Price Position:** ${brandProfile.pricePosition}
+- **Unique Selling Points:** ${brandProfile.uniqueSellingPoints.join(", ")}
 - **Key Competitors:** ${brandProfile.competitors.join(", ")}
 
 Always tailor your responses to align with the brand's voice and target audience described above.

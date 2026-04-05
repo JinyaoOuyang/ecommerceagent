@@ -1,9 +1,9 @@
 // TODO: Implement chat message bubble component with role-based styling
 
-import { AgentMessage } from "@/lib/types";
+import { ChatMessage } from "@/lib/types";
 
 interface MessageBubbleProps {
-  message: AgentMessage;
+  message: ChatMessage;
 }
 
 export function MessageBubble({ message }: MessageBubbleProps) {
@@ -19,9 +19,6 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         }`}
       >
         <p className="whitespace-pre-wrap">{message.content}</p>
-        <span className="block text-[10px] mt-1 opacity-50">
-          {new Date(message.timestamp).toLocaleTimeString()}
-        </span>
       </div>
     </div>
   );

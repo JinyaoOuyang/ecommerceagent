@@ -3,32 +3,32 @@
 "use client";
 
 import { useState } from "react";
-import { OnboardingStep } from "@/lib/types";
+interface WizardStep {
+  step: number;
+  title: string;
+  description: string;
+}
 
-const steps: OnboardingStep[] = [
+const steps: WizardStep[] = [
   {
     step: 1,
     title: "Brand Basics",
     description: "Tell us about your brand name and product category.",
-    isComplete: false,
   },
   {
     step: 2,
     title: "Brand Voice",
     description: "Define your brand's tone, voice, and personality.",
-    isComplete: false,
   },
   {
     step: 3,
     title: "Target Audience",
     description: "Describe your ideal customer and target market.",
-    isComplete: false,
   },
   {
     step: 4,
     title: "Competitive Landscape",
     description: "Identify your unique selling points and key competitors.",
-    isComplete: false,
   },
 ];
 

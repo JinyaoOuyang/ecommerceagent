@@ -4,14 +4,14 @@
 
 import { useState } from "react";
 import { MessageBubble } from "@/components/MessageBubble";
-import { AgentMessage } from "@/lib/types";
+import { ChatMessage } from "@/lib/types";
 
 interface AgentChatProps {
   module: string;
 }
 
 export function AgentChat({ module }: AgentChatProps) {
-  const [messages, setMessages] = useState<AgentMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,12 +19,9 @@ export function AgentChat({ module }: AgentChatProps) {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
-    const userMessage: AgentMessage = {
-      id: crypto.randomUUID(),
+    const userMessage: ChatMessage = {
       role: "user",
       content: input.trim(),
-      module,
-      timestamp: new Date().toISOString(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -67,8 +64,8 @@ export function AgentChat({ module }: AgentChatProps) {
             Ask the AI assistant for help with {module.replace("-", " ")}.
           </p>
         )}
-        {messages.map((msg) => (
-          <MessageBubble key={msg.id} message={msg} />
+        {messages.map((msg, i) => (
+          <MessageBubble key={i} message={msg} />
         ))}
         {isLoading && (
           <div className="text-sm text-foreground/50 animate-pulse">
